@@ -17,13 +17,11 @@
   &__phone {
     font-weight: 600;
     font-size: 14px;
-    line-height: 17px;
     text-transform: uppercase;
     color: $main-color;
 
     @include tablet {
       font-style: 12px;
-      line-height: 15px;
     }
 
     @include mobile {

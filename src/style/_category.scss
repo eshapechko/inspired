@@ -7,19 +7,16 @@
   max-width: 692px;
   gap: 15px;
   font-size: 14px;
-  line-height: 17px;
   text-transform: uppercase;
 
   @include tablet {
     padding: 16px 0 5px;
     font-size: 12px;
-    line-height: 15px;
   }
 
   @include mobile {
     gap: 10px 31px;
     font-size: 10px;
-    line-height: 12px;
     justify-content: flex-start;
   }
 

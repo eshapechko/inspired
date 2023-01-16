@@ -18,11 +18,9 @@
     margin-bottom: 13px;
     font-weight: 400;
     font-size: 14px;
-    line-height: 17px;
 
     @include tablet {
       font-size: 12px;
-      line-height: 15px;
       margin-bottom: 5px;
     }
   }
@@ -40,11 +38,9 @@
 
   &__price {
     font-size: 14px;
-    line-height: 17px;
 
     @include tablet {
       font-size: 12px;
-      line-height: 15px;
     }
   }
 
