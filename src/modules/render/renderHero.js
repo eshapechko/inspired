@@ -4,6 +4,8 @@ import { dataNavigation } from "../dataNavigation";
 export const renderHero = (gender) => {
   const hero = document.querySelector(".hero");
 
+  hero.textContent = "";
+
   if (!gender) {
     hero.style.display = "none";
     return;

@@ -4,6 +4,8 @@ import { dataNavigation } from "../dataNavigation";
 export const renderFooter = (gender) => {
   const footer = document.querySelector(".footer");
 
+  footer.textContent = "";
+
   const container = createElement(
     "div",
     {
