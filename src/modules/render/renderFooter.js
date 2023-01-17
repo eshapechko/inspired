@@ -1,104 +1,118 @@
 import { createElement } from "../createElement";
-import { dataNavigation } from "../dataNavigation";
+// import { DATA } from "../const";
 
 export const renderFooter = (gender) => {
   const footer = document.querySelector(".footer");
 
   footer.textContent = "";
 
-  const container = createElement(
-    "div",
-    {
-      className: "container",
-    },
-    {
-      parent: footer,
-    }
-  );
+  //   const container = createElement(
+  //     "div",
+  //     {
+  //       className: "container",
+  //     },
+  //     {
+  //       parent: footer,
+  //     }
+  //   );
 
-  const footerContainer = createElement(
-    "div",
-    {
-      className: "footer__container",
-    },
-    {
-      parent: container,
-    }
-  );
+  //   const footerContainer = createElement(
+  //     "div",
+  //     {
+  //       className: "footer__container",
+  //     },
+  //     {
+  //       parent: container,
+  //     }
+  //   );
 
-  const footerItemCategory = createElement(
-    "div",
-    {
-      className: "footer__item footer__item_category footer-category",
-    },
-    {
-      parent: footerContainer,
-      appends: [
-        createElement(
-          "h2",
-          {
-            className: "footer__title footer-category__title",
-            textContent: "Каталог",
-          },
-          {
-            parent: footerItemCategory,
-          }
-        ),
-      ],
-    }
-  );
+  //   const footerItem = [
+  //     createElement(
+  //       "div",
+  //       {
+  //         className: "footer__item footer__item_category footer-category",
+  //       },
+  //       {
+  //         parent: footerContainer,
+  //         appends: [
+  //           createElement(
+  //             "h2",
+  //             {
+  //               className: "footer__title footer-category__title",
+  //               textContent: "Каталог",
+  //             },
+  //             {
+  //               parent: footerItem,
+  //             }
+  //           ),
+  //         ],
+  //       }
+  //     ),
+  //     createElement(
+  //       "div",
+  //       {
+  //         className: "footer__item footer__item_social footer-social",
+  //         innerHTML: `<h2 class="footer__title footer-social__title">Связаться с нами</h2>
 
-  const genderList = createElement(
-    "ul",
-    {
-      className: "footer-category__list",
-    },
-    {
-      parent: footerItemCategory,
-    }
-  );
+  //         <p class="footer-social__subtitle">Контакты и адреса магазинов</p>`,
+  //       },
+  //       {
+  //         parent: footerItem,
+  //       }
+  //     ),
+  //   ];
 
-  const footerCategoryItem = createElement(
-    "li",
-    {
-      className: "footer-category__item",
-    },
-    {
-      parent: genderList,
-    }
-  );
+  //   const genderList = createElement(
+  //     "ul",
+  //     {
+  //       className: "footer-category__list",
+  //     },
+  //     {
+  //       parent: footerItemCategory,
+  //     }
+  //   );
 
-  for (const genderName in dataNavigation) {
-    createElement(
-      "a",
-      {
-        className: `footer__link `,
-        href: `#/${genderName}`,
-        textContent: dataNavigation[genderName].title,
-      },
-      {
-        parent: createElement(
-          "h3",
-          {
-            className: "footer-category__subtitle",
-          },
-          {
-            parent: footerCategoryItem,
-          }
-        ),
-      }
-    );
-  }
+  //   const footerCategoryItem = createElement(
+  //     "li",
+  //     {
+  //       className: "footer-category__item",
+  //     },
+  //     {
+  //       parent: genderList,
+  //     }
+  //   );
 
-  const footerCategorySublist = createElement(
-    "ul",
-    {
-      className: "footer-category__sublist",
-    },
-    {
-      parent: footerCategoryItem,
-    }
-  );
+  //   for (const genderName in dataNavigation) {
+  //     createElement(
+  //       "a",
+  //       {
+  //         className: `footer__link `,
+  //         href: `#/${genderName}`,
+  //         textContent: dataNavigation[genderName].title,
+  //       },
+  //       {
+  //         parent: createElement(
+  //           "h3",
+  //           {
+  //             className: "footer-category__subtitle",
+  //           },
+  //           {
+  //             parent: footerCategoryItem,
+  //           }
+  //         ),
+  //       }
+  //     );
+  //   }
+
+  //   const footerCategorySublist = createElement(
+  //     "ul",
+  //     {
+  //       className: "footer-category__sublist",
+  //     },
+  //     {
+  //       parent: footerCategoryItem,
+  //     }
+  //   );
 
   // Выдаёт ошибку в list
 
@@ -125,7 +139,7 @@ export const renderFooter = (gender) => {
   //     )
   //   );
 
-  /* footer.innerHTML = `
+  footer.innerHTML = `
   <div class="container">
     <div class="footer__container">
       <div class="footer__item footer__item_category footer-category">
@@ -253,5 +267,5 @@ export const renderFooter = (gender) => {
         </ul>
       </div>
     </div>
-  </div> `;*/
+  </div> `;
 };

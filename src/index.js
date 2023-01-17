@@ -7,30 +7,38 @@ import { renderFooter } from "./modules/render/renderFooter";
 import { mainPage } from "./modules/mainPage/mainPage";
 import { womenMainPage } from "./modules/mainPage/womenMainPage";
 import { menMainPage } from "./modules/mainPage/menMainPage";
+import { getData } from "./modules/getData";
+import { API_URL, DATA } from "./modules/const";
 
-router.on("*", () => {
-  renderHeader();
-  renderFooter();
-});
+const init = async () => {
+  DATA.navigation = await getData(`${API_URL}/api/categories`);
 
-router.on("/", () => {
-  mainPage();
-});
+  router.on("*", () => {
+    renderHeader();
+    renderFooter();
+  });
 
-router.on("women", () => {
-  womenMainPage();
-});
+  router.on("/", () => {
+    mainPage();
+  });
 
-router.on("men", () => {
-  menMainPage();
-});
+  router.on("women", () => {
+    womenMainPage();
+  });
 
-// setTimeout(() => {
-//   router.navigate("men");
-// }, 3000);
+  router.on("men", () => {
+    menMainPage();
+  });
 
-// setTimeout(() => {
-//   router.navigate("women");
-// }, 6000);
+  // setTimeout(() => {
+  //   router.navigate("men");
+  // }, 3000);
 
-router.resolve();
+  // setTimeout(() => {
+  //   router.navigate("women");
+  // }, 6000);
+
+  router.resolve();
+};
+
+init();

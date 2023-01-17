@@ -1,9 +1,27 @@
-export const renderProducts = () => {
+import { API_URL } from "../const";
+import { createElement } from "../createElement";
+import { getData } from "../getData";
+
+export const renderProducts = async (title, params) => {
   const products = document.querySelector(".goods");
+
+  products.textContent = "";
+
+  const goods = await getData(`${API_URL}/api/goods`, params);
+
+  const container = createElement(
+    "div",
+    {
+      className: "container",
+    },
+    {
+      parent: products,
+    }
+  );
 
   products.innerHTML = `
   <div class="container">
-    <h2 class="goods__title">Новинки</h2>
+    <h2 class="goods__title">title</h2>
 
     <ul class="goods__list">
       <li class="goods__item">

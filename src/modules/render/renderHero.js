@@ -1,5 +1,41 @@
+import { TITLE } from "../const";
 import { createElement } from "../createElement";
-import { dataNavigation } from "../dataNavigation";
+
+const container = createElement("div", {
+  className: "container",
+});
+
+const heroContent = createElement(
+  "div",
+  {
+    className: "hero__content",
+  },
+  {
+    parent: container,
+  }
+);
+
+const heroTitle = createElement(
+  "h2",
+  {
+    className: "hero__title",
+    textContent: "Новая коллекция Бюстгальтер-балконет",
+  },
+  {
+    parent: heroContent,
+  }
+);
+
+const heroLink = createElement(
+  "a",
+  {
+    className: "hero__link",
+    textContent: "Перейти",
+  },
+  {
+    parent: heroContent,
+  }
+);
 
 export const renderHero = (gender) => {
   const hero = document.querySelector(".hero");
@@ -14,48 +50,52 @@ export const renderHero = (gender) => {
   hero.style.display = " ";
   hero.className = `hero hero__${gender}`;
 
-  const container = createElement(
-    "div",
-    {
-      className: "container",
-    },
-    {
-      parent: hero,
-    }
-  );
+  hero.append(container);
 
-  const heroContent = createElement(
-    "div",
-    {
-      className: "hero__content",
-    },
-    {
-      parent: container,
-    }
-  );
+  heroTitle.textContent = TITLE[gender].title;
+  heroLink.href = `#/product/${TITLE[gender].id}`;
+  //   const container = createElement(
+  //     "div",
+  //     {
+  //       className: "container",
+  //     },
+  //     {
+  //       parent: hero,
+  //     }
+  //   );
 
-  const heroTitle = createElement(
-    "h2",
-    {
-      className: "hero__title",
-      textContent: "Новая коллекция Бюстгальтер-балконет",
-    },
-    {
-      parent: heroContent,
-    }
-  );
+  //   const heroContent = createElement(
+  //     "div",
+  //     {
+  //       className: "hero__content",
+  //     },
+  //     {
+  //       parent: container,
+  //     }
+  //   );
 
-  const heroLink = createElement(
-    "a",
-    {
-      className: "hero__link",
-      textContent: "Перейти",
-    },
-    {
-      parent: heroContent,
-      href: "#",
-    }
-  );
+  //   const heroTitle = createElement(
+  //     "h2",
+  //     {
+  //       className: "hero__title",
+  //       textContent: "Новая коллекция Бюстгальтер-балконет",
+  //     },
+  //     {
+  //       parent: heroContent,
+  //     }
+  //   );
+
+  //   const heroLink = createElement(
+  //     "a",
+  //     {
+  //       className: "hero__link",
+  //       textContent: "Перейти",
+  //     },
+  //     {
+  //       parent: heroContent,
+  //       href: "#",
+  //     }
+  //   );
 };
 
 //   hero.innerHTML = `
