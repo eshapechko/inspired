@@ -8,7 +8,7 @@ export const getData = async (urlApi, param, cbError = () => {}) => {
       }
     }
     //   console.log("url: ", url);
-    const response = fetch(url);
+    const response = await fetch(url);
 
     const data = await response.json();
 
