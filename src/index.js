@@ -10,39 +10,55 @@ import { menMainPage } from "./modules/mainPage/menMainPage";
 import { getData } from "./modules/getData";
 import { API_URL, DATA } from "./modules/const";
 import { createCssColors } from "./modules/createCss";
+import { createElement } from "./modules/createElement";
 
 const init = async () => {
-  DATA.navigation = await getData(`${API_URL}/api/categories`);
-  DATA.colors = await getData(`${API_URL}/api/colors`);
+  try {
+    DATA.navigation = await getData(`${API_URL}/api/categories`);
+    DATA.colors = await getData(`${API_URL}/api/colors`);
 
-  createCssColors(DATA.colors);
+    createCssColors(DATA.colors);
 
-  router.on("*", () => {
-    renderHeader();
-    renderFooter();
-  });
+    router.on("*", () => {
+      renderHeader();
+      renderFooter();
+    });
 
-  router.on("/", () => {
-    mainPage();
-  });
+    router.on("/", () => {
+      mainPage();
+    });
 
-  router.on("women", () => {
-    womenMainPage();
-  });
+    router.on("women", () => {
+      womenMainPage();
+    });
 
-  router.on("men", () => {
-    menMainPage();
-  });
+    router.on("men", () => {
+      menMainPage();
+    });
 
-  // setTimeout(() => {
-  //   router.navigate("men");
-  // }, 3000);
+    // setTimeout(() => {
+    //   router.navigate("men");
+    // }, 3000);
 
-  // setTimeout(() => {
-  //   router.navigate("women");
-  // }, 6000);
-
-  router.resolve();
+    // setTimeout(() => {
+    //   router.navigate("women");
+    // }, 6000);
+  } catch (e) {
+    createElement(
+      "h2",
+      {
+        textContent: "Что-то пошло не так, попробуйте позже",
+        cb(h2) {
+          h2.style.textAlign = "center";
+        },
+      },
+      {
+        parent: document.querySelector("main"),
+      }
+    );
+  } finally {
+    router.resolve();
+  }
 };
 
 init();
