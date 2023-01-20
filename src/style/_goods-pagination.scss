@@ -1,0 +1,13 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+
+  &__list {
+    display: flex;
+  }
+
+  &__arrow {
+  }
+}
