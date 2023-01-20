@@ -1,11 +1,10 @@
-import { API_URL, COUNT_PAGINATION, DATA } from "../const";
+import { API_URL, COUNT_PAGINATION, DATA, products } from "../const";
 import { createElement } from "../utils/createElement";
 import { getData } from "../getData";
 import { renderPagination } from "./renderPagination";
+import { getFavorite } from "../controllers/favoriteController";
 
 export const renderProducts = async (title, params) => {
-  const products = document.querySelector(".goods");
-
   products.textContent = "";
 
   const data = await getData(`${API_URL}/api/goods`, params);
@@ -22,7 +21,7 @@ export const renderProducts = async (title, params) => {
     }
   );
 
-  createElement(
+  const titleElem = createElement(
     "h2",
     {
       className: "goods__title",
@@ -32,6 +31,35 @@ export const renderProducts = async (title, params) => {
       parent: container,
     }
   );
+
+  if (Object.hasOwn(data, "totalCount")) {
+    createElement(
+      "sup",
+      {
+        className: "goods__title-sup",
+        innerHTML: `&nbsp(${data?.totalCount})`,
+      },
+      {
+        parent: titleElem,
+      }
+    );
+
+    if (!data.totalCount) {
+      createElement(
+        "p",
+        {
+          className: "goods_warning",
+          textContent: "По вашему запросу ничего не найдено",
+        },
+        {
+          parent: container,
+        }
+      );
+      return;
+    }
+  }
+
+  const favoriteList = getFavorite();
 
   const listCard = goods.map((product) => {
     const li = createElement("li", {
@@ -54,7 +82,10 @@ export const renderProducts = async (title, params) => {
             <div class="product__row">
                 <p class="product__price">руб ${product.price}</p>
 
-                <button class="product__btn-favorite"
+                <button 
+                class="product__btn-favorite favorite ${
+                  favoriteList.includes(product.id) ? "favorite_active" : ""
+                }"
                     aria-label="Добавить в избранное"
                     data-id=${product.id}></button>
             </div>

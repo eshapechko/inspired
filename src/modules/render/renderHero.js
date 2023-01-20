@@ -1,4 +1,4 @@
-import { TITLE } from "../const";
+import { hero, TITLE } from "../const";
 import { createElement } from "../utils/createElement";
 
 const container = createElement("div", {
@@ -19,7 +19,7 @@ const heroTitle = createElement(
   "h2",
   {
     className: "hero__title",
-    textContent: "Новая коллекция Бюстгальтер-балконет",
+    // textContent: "Новая коллекция Бюстгальтер-балконет",
   },
   {
     parent: heroContent,
@@ -38,8 +38,6 @@ const heroLink = createElement(
 );
 
 export const renderHero = (gender) => {
-  const hero = document.querySelector(".hero");
-
   hero.textContent = "";
 
   if (!gender) {
@@ -54,48 +52,6 @@ export const renderHero = (gender) => {
 
   heroTitle.textContent = TITLE[gender].title;
   heroLink.href = `#/product/${TITLE[gender].id}`;
-  //   const container = createElement(
-  //     "div",
-  //     {
-  //       className: "container",
-  //     },
-  //     {
-  //       parent: hero,
-  //     }
-  //   );
-
-  //   const heroContent = createElement(
-  //     "div",
-  //     {
-  //       className: "hero__content",
-  //     },
-  //     {
-  //       parent: container,
-  //     }
-  //   );
-
-  //   const heroTitle = createElement(
-  //     "h2",
-  //     {
-  //       className: "hero__title",
-  //       textContent: "Новая коллекция Бюстгальтер-балконет",
-  //     },
-  //     {
-  //       parent: heroContent,
-  //     }
-  //   );
-
-  //   const heroLink = createElement(
-  //     "a",
-  //     {
-  //       className: "hero__link",
-  //       textContent: "Перейти",
-  //     },
-  //     {
-  //       parent: heroContent,
-  //       href: "#",
-  //     }
-  //   );
 };
 
 //   hero.innerHTML = `
