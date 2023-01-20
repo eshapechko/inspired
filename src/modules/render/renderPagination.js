@@ -55,10 +55,10 @@ export const renderPagination = (wrapperPagination, page, pages, count) => {
       "a",
       {
         className: `pagination__arrow pagination__arrow_start ${
-          !isNotStart ? "pagination__arrow_disabled" : ""
+          !isNotStart ? "pagination__arrow_start_disabled" : ""
         }`,
         href: getUrl({ page: 1 }),
-        textContent: "<",
+        textContent: "",
         ariaLabel: "В начало",
       },
       {
@@ -70,10 +70,10 @@ export const renderPagination = (wrapperPagination, page, pages, count) => {
       "a",
       {
         className: `pagination__arrow pagination__arrow_end ${
-          isEnd ? "pagination__arrow_disabled" : ""
+          isEnd ? "pagination__arrow_end_disabled" : ""
         }`,
         href: getUrl({ page: pages }),
-        textContent: ">",
+        textContent: "",
         ariaLabel: "В конец",
       },
       {
