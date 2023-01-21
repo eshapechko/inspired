@@ -11,12 +11,10 @@ html {
 
 body {
   min-width: 320px;
-  font-family: "Inter", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.2;
+  font-family: Inter, sans-serif;
   background-color: $second-color;
   color: $main-color;
+  font-weight: 400;
 }
 
 img,
@@ -51,28 +49,25 @@ h1,
 h2,
 h3,
 p,
-figure,
-fieldset {
+figure{
   margin: 0;
 }
 
-/*
-  Доступно скрываю элементы
-  */
+fieldset {  // add
+  padding: 0;
+  margin: 0;
+  border: none;
+}
 
 .visually-hidden {
   position: fixed;
   transform: scale(0);
 }
 
-/*
-  Пример контейнера
-  
-  Если контейнер 1180px по макету,
-  то для max-width прибавляем паддинги 30px*2, 
-  в итоге 1240px
-  Чтобы контент не прижимался к краям экрана
-  */
+.input-hide {  // add
+  appearance: none;
+}
+
 
 .container {
   --max-width: 1180px;
@@ -80,12 +75,15 @@ fieldset {
   max-width: calc(var(--max-width) + var(--padding) * 2);
   padding: 0 var(--padding);
   margin: 0 auto;
+
   @include laptop {
-    --max-width: 800px;
+    --max-width: 880px;
   }
+
   @include tablet {
     --max-width: 620px;
   }
+
   @include mobile {
     --padding: 15px;
   }
@@ -97,6 +95,7 @@ main {
   @include tablet {
     margin-bottom: 80px;
   }
+
   @include mobile {
     margin-bottom: 60px;
   }

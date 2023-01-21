@@ -6,13 +6,13 @@ import { renderProducts } from "../render/renderProducts";
 export const getFavorite = () =>
   JSON.parse(localStorage.getItem("favorite") || "[]");
 
-export const addFavorite = (id) => {
+const addFavorite = (id) => {
   const favoriteList = getFavorite();
   favoriteList.push(id);
   localStorage.setItem("favorite", JSON.stringify(favoriteList));
 };
 
-export const removeFavorite = () => {
+const removeFavorite = (id) => {
   const favoriteList = getFavorite();
   const index = favoriteList.findIndex((item) => item === id);
 
