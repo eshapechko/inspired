@@ -5,11 +5,15 @@ import { renderNavigation } from "../render/renderNavigation";
 import { renderOrder } from "../render/renderOrder";
 import { renderProducts } from "../render/renderProducts";
 
-export const mainPageController = (gender = "women") => {
-  renderNavigation({ gender, render: true });
-  renderHero({ gender, render: true });
+export const addProductCart = (product) => {
+  console.log("product: ", product);
+};
+
+export const cartController = () => {
+  renderNavigation({ render: false });
+  renderHero({ render: false });
   renderCard({ render: false });
-  renderProducts({ title: "Новинки", params: { gender }, render: true });
-  renderCart({ render: false });
-  renderOrder({ render: false });
+  renderProducts({ render: false });
+  renderCart({ render: true });
+  renderOrder({ render: true });
 };

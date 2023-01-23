@@ -31,19 +31,20 @@
     line-height: 17px;
     padding: 0 24px;
 
-    @supports not selector(:focus-visible) {
+    &::focus {
+      border: 1px solid $main-color;
+    }
+
+    @supports selector(:focus-visible) {
       &::focus {
+        outline: none;
+        border: none;
+      }
+
+      &:focus-visible {
+        outline: none;
         border: 1px solid $main-color;
       }
-    }
-
-    &::focus {
-      outline: none;
-    }
-
-    &:focus-visible {
-      outline: none;
-      border: 1px solid $main-color;
     }
 
     &::placeholder {

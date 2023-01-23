@@ -37,13 +37,13 @@ const heroLink = createElement(
   }
 );
 
-export const renderHero = (gender) => {
-  hero.textContent = "";
-
-  if (!gender) {
+export const renderHero = ({ gender, render }) => {
+  if (!render) {
     hero.style.display = "none";
     return;
   }
+
+  //   hero.textContent = "";
 
   hero.style.display = " ";
   hero.className = `hero hero__${gender}`;

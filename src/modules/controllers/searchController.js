@@ -1,5 +1,8 @@
+import { renderCard } from "../render/renderCard";
+import { renderCart } from "../render/renderCart";
 import { renderHero } from "../render/renderHero";
 import { renderNavigation } from "../render/renderNavigation";
+import { renderOrder } from "../render/renderOrder";
 import { renderProducts } from "../render/renderProducts";
 import { router } from "../utils/router";
 
@@ -21,7 +24,10 @@ export const searchPageController = (routerData) => {
     params.page = routerData.params.page;
   }
 
-  renderNavigation("all");
-  renderHero(false);
-  renderProducts(routerData.params.value, params);
+  renderNavigation({ render: true, repeat: true });
+  renderHero({ render: false });
+  renderCard({ render: false });
+  renderProducts({ title: routerData.params.value, params, render: true });
+  renderCart({ render: false });
+  renderOrder({ render: false });
 };
