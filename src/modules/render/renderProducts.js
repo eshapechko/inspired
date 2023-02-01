@@ -5,76 +5,76 @@ import { renderPagination } from "./renderPagination";
 import { getFavorite } from "../controllers/favoriteController";
 
 export const renderProducts = async ({ title, params, render }) => {
-  products.textContent = "";
+    products.textContent = "";
 
-  if (!render) {
-    return;
-  }
-
-  const data = await getData(`${API_URL}/api/goods`, params);
-
-  const goods = Array.isArray(data) ? data : data.goods;
-
-  const container = createElement(
-    "div",
-    {
-      className: "container",
-    },
-    {
-      parent: products,
+    if (!render) {
+        return;
     }
-  );
 
-  const titleElem = createElement(
-    "h2",
-    {
-      className: "goods__title",
-      textContent: title,
-    },
-    {
-      parent: container,
-    }
-  );
+    const data = await getData(`${API_URL}/api/goods`, params);
 
-  if (Object.hasOwn(data, "totalCount")) {
-    createElement(
-      "sup",
-      {
-        className: "goods__title-sup",
-        innerHTML: `&nbsp(${data?.totalCount})`,
-      },
-      {
-        parent: titleElem,
-      }
-    );
+    const goods = Array.isArray(data) ? data : data.goods;
 
-    if (!data.totalCount) {
-      createElement(
-        "p",
+    const container = createElement(
+        "div",
         {
-          className: "goods_warning",
-          textContent: "По вашему запросу ничего не найдено",
+            className: "container",
         },
         {
-          parent: container,
+            parent: products,
         }
-      );
-      return;
+    );
+
+    const titleElem = createElement(
+        "h2",
+        {
+            className: "goods__title",
+            textContent: title,
+        },
+        {
+            parent: container,
+        }
+    );
+
+    if (data.hasOwnProperty("totalCount")) {
+        createElement(
+            "sup",
+            {
+                className: "goods__title-sup",
+                innerHTML: `&nbsp(${data?.totalCount})`,
+            },
+            {
+                parent: titleElem,
+            }
+        );
+
+        if (!Array.isArray(data) && !data.totalCount) {
+            createElement(
+                "p",
+                {
+                    className: "goods_warning",
+                    textContent: "По вашему запросу ничего не найдено",
+                },
+                {
+                    parent: container,
+                }
+            );
+            return;
+        }
     }
-  }
 
-  const favoriteList = getFavorite();
+    const favoriteList = getFavorite();
 
-  const listCard = goods.map((product) => {
-    const li = createElement("li", {
-      className: "goods__item",
-    });
+    const listCard = goods.map((product) => {
+        const li = createElement("li", {
+            className: "goods__item",
+        });
 
-    const article = createElement(
-      "article",
-      {
-        className: "product",
-        innerHTML: `
+        const article = createElement(
+            "article",
+            {
+                className: "product",
+                innerHTML: `
              <a href="#/product/${product.id}" class="product__link">
                 <img
                     src="${API_URL}/${product.pic}"
@@ -88,62 +88,66 @@ export const renderProducts = async ({ title, params, render }) => {
 
                 <button 
                 class="product__btn-favorite favorite ${
-                  favoriteList.includes(product.id) ? "favorite_active" : ""
+                    favoriteList.includes(product.id) ? "favorite_active" : ""
                 }"
                     aria-label="Добавить в избранное"
                     data-id=${product.id}></button>
             </div>
         `,
-      },
-      {
-        parent: li,
-      }
+            },
+            {
+                parent: li,
+            }
+        );
+
+        const colors = createElement(
+            "ul",
+            {
+                className: "product__color-list",
+            },
+            {
+                parent: article,
+                appends: product.colors.map((colorId, i) => {
+                    const color = DATA.colors.find(
+                        (item) => item.id == colorId
+                    );
+
+                    return createElement("li", {
+                        className: `color color_${color.title} ${
+                            i ? "" : "color_check"
+                        }`,
+                    });
+                }),
+            }
+        );
+
+        return li;
+    });
+
+    const list = createElement(
+        "ul",
+        {
+            className: "goods__list",
+        },
+        {
+            appends: listCard,
+            parent: container,
+        }
     );
 
-    const colors = createElement(
-      "ul",
-      {
-        className: "product__color-list",
-      },
-      {
-        parent: article,
-        appends: product.colors.map((colorId, i) => {
-          const color = DATA.colors.find((item) => item.id == colorId);
+    if (data.pages && data.pages > 1) {
+        const pagination = createElement(
+            "div",
+            {
+                className: "goods__pagination pagination",
+            },
+            {
+                parent: container,
+            }
+        );
 
-          return createElement("li", {
-            className: `color color_${color.title} ${i ? "" : "color_check"} `,
-          });
-        }),
-      }
-    );
-
-    return li;
-  });
-
-  const list = createElement(
-    "ul",
-    {
-      className: "goods__list",
-    },
-    {
-      appends: listCard,
-      parent: container,
+        renderPagination(pagination, data.page, data.pages, COUNT_PAGINATION);
     }
-  );
-
-  if (data.pages && data.pages > 1) {
-    const pagination = createElement(
-      "div",
-      {
-        className: "goods__pagination pagination",
-      },
-      {
-        parent: container,
-      }
-    );
-
-    renderPagination(pagination, data.page, data.pages, COUNT_PAGINATION);
-  }
 };
 
 /*products.innerHTML = `

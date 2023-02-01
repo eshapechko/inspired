@@ -1,47 +1,47 @@
 import { API_URL, order } from "../const";
 import {
-  calcTotalPrice,
-  cartGoodsStore,
-  clearCart,
-  getCart,
+    calcTotalPrice,
+    cartGoodsStore,
+    clearCart,
+    getCart,
 } from "../controllers/cartController";
 import { sendOrder } from "../controllers/orderController";
 import { createElement } from "../utils/createElement";
 import { router } from "../utils/router";
 
 const showOrderInfo = (data) => {
-  //   console.log(data);
-  const modal = createElement(
-    "div",
-    {
-      className: "modal",
-    },
-    {
-      parent: document.body,
-      cb(el) {
-        el.addEventListener("click", (e) => {
-          if (e.target === e) {
-            el.remove();
-            router.navigate("/");
-          }
-        });
-      },
-    }
-  );
+    //   console.log(data);
+    const modal = createElement(
+        "div",
+        {
+            className: "modal",
+        },
+        {
+            parent: document.body,
+            cb(el) {
+                el.addEventListener("click", (e) => {
+                    if (e.target === el) {
+                        el.remove();
+                        router.navigate("/");
+                    }
+                });
+            },
+        }
+    );
 
-  const modalBody = createElement(
-    "div",
-    {
-      className: "modal__body",
-    },
-    {
-      parent: modal,
-    }
-  );
+    const modalBody = createElement(
+        "div",
+        {
+            className: "modal__body",
+        },
+        {
+            parent: modal,
+        }
+    );
 
-  modalBody.insertAdjacentHTML(
-    "beforeend",
-    `
+    modalBody.insertAdjacentHTML(
+        "beforeend",
+        `
     <h2 class="modal__title">Заказ оформлен №${data.id}</h2>
     <p class="modal__description modal__description_thank">Спасибо за выбор нашего магазина!</p>
     <p class="modal__description">Здесь вы можете посмотреть все детали вашего заказа.</p>
@@ -53,8 +53,8 @@ const showOrderInfo = (data) => {
       </li>
 
       ${
-        data.address &&
-        `
+          data.address &&
+          `
         <li class="customer__item">
             <span class="customer__item-title">Адрес доставки</span>
             <span class="customer__item-data">${data.address}</span>
@@ -70,8 +70,8 @@ const showOrderInfo = (data) => {
       </li>
 
       ${
-        data.email &&
-        `
+          data.email &&
+          `
       <li class="customer__item">
         <span class="customer__item-title">E-mail</span>
         <span class="customer__item-data">${data.email}</span>
@@ -82,165 +82,165 @@ const showOrderInfo = (data) => {
       <li class="customer__item">
         <span class="customer__item-title">Способ получения</span>
         <span class="customer__item-data">${
-          {
-            self: "Самовывоз",
-            delivery: "Доставка",
-          }[data.delivery]
+            {
+                self: "Самовывоз",
+                delivery: "Доставка",
+            }[data.delivery]
         }</span>
       </li>
     </ul>
     `
-  );
+    );
 
-  const goodsList = createElement(
-    "ul",
-    {
-      className: "modal__goods goods-list",
-    },
-    {
-      parent: modalBody,
-      appends: [
-        ...data.order.map((item) => {
-          const goodsListItem = createElement("li", {
-            className: "goods-list__item",
-          });
-
-          const product = cartGoodsStore.getProduct(item.id);
-
-          createElement(
-            "img",
-            {
-              className: "goods-list__img",
-              src: `${API_URL}/${product.pic}`,
-              alt: product.title,
-            },
-            {
-              parent: goodsListItem,
-            }
-          );
-
-          createElement(
-            "p",
-            {
-              className: "goods-list__count",
-              textContent: `X${item.count}`,
-            },
-            {
-              parent: goodsListItem,
-            }
-          );
-
-          return goodsListItem;
-        }),
-      ],
-    }
-  );
-
-  const cartTotal = createElement(
-    "div",
-    {
-      className: "modal__total",
-      innerHTML: ' <p class="modal__total-title">Итого:</p>',
-    },
-    {
-      parent: modalBody,
-    }
-  );
-
-  createElement(
-    "p",
-    {
-      className: "modal__total-price",
-      textContent: "руб ",
-    },
-    {
-      parent: cartTotal,
-      append: createElement(
-        "span",
-        {},
+    const goodsList = createElement(
+        "ul",
         {
-          cb(elem) {
-            calcTotalPrice.writeTotal(elem);
-          },
-        }
-      ),
-    }
-  );
+            className: "modal__goods goods-list",
+        },
+        {
+            parent: modalBody,
+            appends: [
+                ...data.order.map((item) => {
+                    const goodsListItem = createElement("li", {
+                        className: "goods-list__item",
+                    });
 
-  createElement(
-    "button",
-    {
-      className: "modal__close",
-      innerHTML: `
+                    const product = cartGoodsStore.getProduct(item.id);
+
+                    createElement(
+                        "img",
+                        {
+                            className: "goods-list__img",
+                            src: `${API_URL}/${product.pic}`,
+                            alt: product.title,
+                        },
+                        {
+                            parent: goodsListItem,
+                        }
+                    );
+
+                    createElement(
+                        "p",
+                        {
+                            className: "goods-list__count",
+                            textContent: `X${item.count}`,
+                        },
+                        {
+                            parent: goodsListItem,
+                        }
+                    );
+
+                    return goodsListItem;
+                }),
+            ],
+        }
+    );
+
+    const cartTotal = createElement(
+        "div",
+        {
+            className: "modal__total",
+            innerHTML: '<p class="modal__total-title">Итого:</p>',
+        },
+        {
+            parent: modalBody,
+        }
+    );
+
+    createElement(
+        "p",
+        {
+            className: "modal__total-price",
+            textContent: "руб ",
+        },
+        {
+            parent: cartTotal,
+            append: createElement(
+                "span",
+                {},
+                {
+                    cb(elem) {
+                        calcTotalPrice.writeTotal(elem);
+                    },
+                }
+            ),
+        }
+    );
+
+    createElement(
+        "button",
+        {
+            className: "modal__close",
+            innerHTML: `
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M16 8L8 16" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             <path d="M16 16L8 8" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
         `,
-    },
-    {
-      parent: modalBody,
-      cb(btn) {
-        btn.addEventListener("click", () => {
-          modal.remove();
-          router.navigate("/"); //переход на главную страницу
-        });
-      },
-    }
-  );
+        },
+        {
+            parent: modalBody,
+            cb(btn) {
+                btn.addEventListener("click", () => {
+                    modal.remove();
+                    router.navigate("/"); //переход на главную страницу
+                });
+            },
+        }
+    );
 
-  clearCart(); //очистка корзины
+    clearCart(); //очистка корзины
 };
 
 // RenderOrder
 
 export const renderOrder = ({ render }) => {
-  order.textContent = "";
+    order.textContent = "";
 
-  if (!render) {
-    return;
-  }
-
-  const container = createElement(
-    "div",
-    {
-      className: "container",
-      innerHTML: ' <h2 class="order__title">Оформление заказа</h2>',
-    },
-    {
-      parent: order,
+    if (!render) {
+        return;
     }
-  );
 
-  const orderForm = createElement(
-    "form",
-    {
-      className: "order__form",
-    },
-    {
-      parent: container,
-      cb(form) {
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
+    const container = createElement(
+        "div",
+        {
+            className: "container",
+            innerHTML: '<h2 class="order__title">Оформление заказа</h2>',
+        },
+        {
+            parent: order,
+        }
+    );
 
-          const formData = new FormData(form);
-          const data = Object.fromEntries(formData);
-          data.order = getCart();
+    const orderForm = createElement(
+        "form",
+        {
+            className: "order__form",
+        },
+        {
+            parent: container,
+            cb(form) {
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
 
-          if (data.order.length) {
-            sendOrder(data).then((dataOrder) => {
-              showOrderInfo(dataOrder);
-            });
-          } else {
-          }
-        });
-      },
-    }
-  );
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData);
+                    data.order = getCart();
 
-  orderForm.insertAdjacentHTML(
-    "beforeend",
-    `
+                    if (data.order.length) {
+                        sendOrder(data).then((dataOrder) => {
+                            showOrderInfo(dataOrder);
+                        });
+                    } else {
+                    }
+                });
+            },
+        }
+    );
+
+    orderForm.insertAdjacentHTML(
+        "beforeend",
+        `
     <fieldset class="order__personal">
         <label class="order__label">
         <input
@@ -305,7 +305,7 @@ export const renderOrder = ({ render }) => {
         Оформить
     </button>
     `
-  );
+    );
 };
 
 /*

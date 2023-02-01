@@ -6,10 +6,10 @@ import { renderOrder } from "../render/renderOrder";
 import { renderProducts } from "../render/renderProducts";
 
 export const mainPageController = (gender = "women") => {
-  renderNavigation({ gender, render: true });
-  renderHero({ gender, render: true });
-  renderCard({ render: false });
-  renderProducts({ title: "Новинки", params: { gender }, render: true });
-  renderCart({ render: false });
-  renderOrder({ render: false });
+    renderNavigation({ gender, render: true });
+    renderHero({ gender, render: true });
+    renderCard({ render: false });
+    renderProducts({ title: "Новинки", params: { gender }, render: true });
+    renderCart({ render: false });
+    renderOrder({ render: false });
 };

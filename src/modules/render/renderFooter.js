@@ -2,101 +2,106 @@ import { DATA, footer } from "../const";
 import { createElement } from "../utils/createElement";
 
 const createFooterCategory = () => {
-  const footerCategory = createElement("div", {
-    className: "footer__item footer__item_category footer-category",
-  });
-
-  createElement(
-    "h2",
-    {
-      className: "footer__title footer-category__title",
-      textContent: "Каталог",
-    },
-    {
-      parent: footerCategory,
-    }
-  );
-
-  const footerCategoryList = createElement(
-    "ul",
-    {
-      className: "footer-category__list",
-    },
-    {
-      parent: footerCategory,
-    }
-  );
-
-  for (const key in DATA.navigation) {
-    const footerCategoryItem = createElement(
-      "li",
-      {
-        className: "footer-category__item",
-      },
-      {
-        parent: footerCategoryList,
-        append: createElement(
-          "h3",
-          {
-            className: "footer-category__subtitle",
-          },
-          {
-            append: createElement("a", {
-              className: "footer__link",
-              href: `#/${key}`,
-              textContent: DATA.navigation[key].title,
-            }),
-          }
-        ),
-      }
-    );
+    const footerCategory = createElement("div", {
+        className: "footer__item footer__item_category footer-category",
+    });
 
     createElement(
-      "ul",
-      {
-        className: "footer-category__sublist",
-      },
-      {
-        parent: footerCategoryItem,
-        appends: DATA.navigation[key].list.map((item) =>
-          createElement(
+        "h2",
+        {
+            className: "footer__title footer-category__title",
+            textContent: "Каталог",
+        },
+        {
+            parent: footerCategory,
+        }
+    );
+
+    const footerCategoryList = createElement(
+        "ul",
+        {
+            className: "footer-category__list",
+        },
+        {
+            parent: footerCategory,
+        }
+    );
+
+    for (const key in DATA.navigation) {
+        const footerCategoryItem = createElement(
             "li",
             {
-              className: "footer-category__subitem",
+                className: "footer-category__item",
             },
             {
-              append: createElement("a", {
-                className: "footer__link",
-                href: `#/${key}/${item.slug}`,
-                textContent: item.title,
-              }),
+                parent: footerCategoryList,
+                append: createElement(
+                    "h3",
+                    {
+                        className: "footer-category__subtitle",
+                    },
+                    {
+                        append: createElement("a", {
+                            className: "footer__link",
+                            href: `#/${key}`,
+                            textContent: DATA.navigation[key].title,
+                        }),
+                    }
+                ),
             }
-          )
-        ),
-      }
-    );
-  }
+        );
 
-  return footerCategory;
+        createElement(
+            "ul",
+            {
+                className: "footer-category__sublist",
+            },
+            {
+                parent: footerCategoryItem,
+                appends: DATA.navigation[key].list.map((item) =>
+                    createElement(
+                        "li",
+                        {
+                            className: "footer__link",
+                        },
+                        {
+                            append: createElement("a", {
+                                className: "footer__link",
+                                href: `#/${key}/${item.slug}`,
+                                textContent: item.title,
+                            }),
+                        }
+                    )
+                ),
+            }
+        );
+    }
+
+    return footerCategory;
 };
 
-export const renderFooter = (gender) => {
-  footer.textContent = "";
+export const renderFooter = () => {
+    footer.textContent = "";
 
-  const container = createElement(
-    "div",
-    {
-      className: "container footer__container",
-    },
-    {
-      parent: footer,
-      append: createFooterCategory(),
-    }
-  );
+    const container = createElement(
+        "div",
+        {
+            className: "container",
+        },
+        { parent: footer }
+    );
 
-  container.insertAdjacentHTML(
-    "beforeend",
-    `
+    const footerContainer = createElement(
+        "div",
+        {
+            className: "footer__container",
+        },
+        { parent: container, append: createFooterCategory() }
+    );
+
+    footerContainer.insertAdjacentHTML(
+        "beforeend",
+        `
       <div class="footer__item footer__item_social footer-social">
         <h2 class="footer__title footer-social__title">Связаться с нами</h2>
 
@@ -171,7 +176,7 @@ export const renderFooter = (gender) => {
         </ul>
       </div>
     `
-  );
+    );
 };
 
 // draft Footer

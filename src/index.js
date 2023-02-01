@@ -13,57 +13,61 @@ import { categoryPageController } from "./modules/controllers/categoryPageContro
 import { searchPageController } from "./modules/controllers/searchController";
 import { favoriteController } from "./modules/controllers/favoriteController";
 import { cardController } from "./modules/controllers/cardController";
-import { cartController } from "./modules/controllers/cartController";
+import {
+    cartController,
+    cartGoodsStore,
+    getCart,
+} from "./modules/controllers/cartController";
 
 const init = async () => {
-  try {
-    router.on("*", () => {
-      renderHeader();
-      renderFooter();
-    });
+    try {
+        DATA.navigation = await getData(`${API_URL}/api/categories`);
+        DATA.colors = await getData(`${API_URL}/api/colors`);
+        router.on("*", () => {
+            renderHeader();
+            renderFooter();
+        });
 
-    DATA.navigation = await getData(`${API_URL}/api/categories`);
-    DATA.colors = await getData(`${API_URL}/api/colors`);
+        createCssColors(DATA.colors);
 
-    createCssColors(DATA.colors);
+        router.on("/", () => {
+            mainPageController();
+        });
 
-    router.on("/", () => {
-      mainPageController();
-    });
+        router.on("women", () => {
+            mainPageController("women");
+        });
 
-    router.on("women", () => {
-      mainPageController("women");
-    });
+        router.on("men", () => {
+            mainPageController("men");
+        });
 
-    router.on("men", () => {
-      mainPageController("men");
-    });
+        router.on("/:gender/:category", categoryPageController);
 
-    router.on("/:gender/:category", categoryPageController);
+        router.on("/product/:id", cardController);
 
-    router.on("/product/:id", cardController);
+        router.on("cart", cartController);
 
-    router.on("cart", cartController);
+        router.on("search", searchPageController);
 
-    router.on("search", searchPageController);
-
-    router.on("favorite", favoriteController);
-  } catch (e) {
-    createElement(
-      "h2",
-      {
-        textContent: "Что-то пошло не так, попробуйте позже",
-      },
-      {
-        parent: main,
-        cb(h2) {
-          h2.style.textAlign = "center";
-        },
-      }
-    );
-  } finally {
-    router.resolve();
-  }
+        router.on("favorite", favoriteController);
+    } catch (e) {
+        console.warn(e);
+        createElement(
+            "h2",
+            {
+                textContent: "Что-то пошло не так, попробуйте позже",
+            },
+            {
+                parent: main,
+                cb(h2) {
+                    h2.style.textAlign = "center";
+                },
+            }
+        );
+    } finally {
+        router.resolve();
+    }
 };
 
 init();
